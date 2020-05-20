@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{app.title}">Title</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="col-md-6">
+ <a th:href="@{/customer/home}" class="btn btn-info  btn-md btn-rounded">
+          <span class="glyphicon glyphicon-home"></span> Home
+        </a>
+        </div>
+	<h1 style="margin-left: 16em;" th:text="${header}"></h1>
+	<div style="margin-left: 43em;color: crimson;" th:text="${successMsg}"></div>
+	<form action="#" th:action="@{/customer/add-customer}"
+		th:object="${customerTO}" method="POST">
+		<div class="form-group ">
+		
+		<div class="col-md-6 form-group">
+		<label>First Name :</label>
+		<input type="text" th:field="*{custFName}"  class="form-control"/>
+		<label th:if="${#fields.hasErrors('custFName')}" th:text="#{error.custFName}"  th:class="'error'">Id Error</label>
+			</div>
+			<div class="col-md-6 form-group">
+			 <label>LastName :</label><input type="text" th:field="*{custLName}"  class="form-control"/> 
+			 <label 	th:if="${#fields.hasErrors('custLName')}" th:text="#{error.custLName}" th:class="'error'">Id Error</label> 
+			</div>
+			
+	<div class="col-md-6 form-group">
+			
+			<label>City:</label><input type="text" th:field="*{city}" class="form-control"/>
+			 <label th:if="${#fields.hasErrors('city')}" th:text="#{error.city}" th:class="'error'">Id Error</label> 
+			</div>
+			
+			<div class="col-md-6 form-group">
+			<label>State :</label><input type="text" th:field="*{state}"  class="form-control"/>
+			 <label th:if="${#fields.hasErrors('state')}" th:text="#{error.state}"th:class="'error'">Id Error</label> 
+			</div>
+			
+			<div class="col-md-6 form-group">
+			<label>Contact :</label><input type="text" th:field="*{contact}" class="form-control" /> 
+			<label th:if="${#fields.hasErrors('contact')}" th:text="#{error.contact}" th:class="'error'">Id Error</label>
+     </div>
+     
+     	<div class="col-md-6 form-group">
+			<label>Total Due :</label><input type="text" th:field="*{totalDue}" class="form-control" /> 
+			<label th:if="${#fields.hasErrors('totalDue')}" th:text="#{error.totalDue}" th:class="'error'">Id Error</label>
+     </div>
+				<div class="col-md-12" style="margin-left: 49em;">
+						<button id="add" class="btn btn-primary" >add</button>
+				</div>
+		</div>
+
+	</form>
+</body>
+
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="#{app.title}">Title</title>
+<link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<!-- <script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script> -->
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body onload="onLoadEvents()">
+
+	<input id="custIDUniversal" type="hidden">
+
+	<h1>BalanceApp</h1>
+	<button id="allcustomer" class="btn btn-primary"
+		onclick="getAllCustomer()">GET ALL CUSTOMER</button>
+	<button id="addCustomer" class="btn btn-primary">Add
+		Customer</button>
+	<div id="successMsg" style="margin-left: 43em; color: crimson;"></div>
+	<table class="table table-striped table-hover" style="width: 1420px;"
+		id="CustDatatable" />
+	</div>
+
+	<!-- Modal for credited Bill-->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title container text-center">Credited Bill</h4>
+				</div>
+				<form action="">
+					<div class="modal-body">
+						<input id="custIdModelData" type="hidden">
+						<div class="col-md-6 form-group">
+							<label>custFName:</label><input type="text" id="custFName" readonly="readonly"
+								name="custFName" class="form-control" />
+						</div>
+
+						<div class="col-md-6 form-group">
+							<label>custLName:</label><input type="text" id="custLName" readonly="readonly"
+								name="custLName" class="form-control" />
+						</div>
+
+
+						<div class="col-md-6 form-group">
+							<label>creditAmount:</label><input type="text" id="creditAmount"
+								name="creditAmount" class="form-control" />
+						</div>
+						<div class="col-md-6 form-group">
+							<label>creditDate:</label><input type="text" id="creditDate"
+								name="creditDate" class="form-control" />
+						</div>
+
+
+					</div>
+
+
+				</form>
+				<div class="modal-footer">
+					<button id="addCredit" type="button" class="btn btn-primary"
+						onclick="addCreditBil()">add</button>
+					<button id="closeModel" type="button" class="btn btn-default"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal End-->
+
+	<!-- Modal for Debited Bill-->
+	<div class="modal fade" id="myModalDebit" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title container text-center">Debited Bill</h4>
+				</div>
+				<form id="debitBillForm" action="">
+					<div class="modal-body">
+						<input id="custIdDebitModelData" type="hidden">
+						<div class="col-md-6 form-group">
+							<label>custFName:</label><input type="text" id="custFNameDebit" readonly="readonly"
+								name="custFNameDebit" class="form-control" />
+						</div>
+
+						<div class="col-md-6 form-group">
+							<label>custLName:</label><input type="text" id="custLNameDebit" readonly="readonly"
+								name="custLNameDebit" class="form-control" />
+						</div>
+
+
+						<div class="col-md-6 form-group">
+							<label>Bill Amount:</label><input type="text" id="billAmount"
+								name="billAmount" class="form-control" />
+						</div>
+
+						<div class="col-md-6 form-group">
+							<label>Bill Date:</label><input type="text" id="billDate"
+								name="billDate" class="form-control" />
+						</div>
+
+					</div>
+
+
+				</form>
+				<div class="modal-footer">
+					<button id="addDebit" type="button" class="btn btn-primary"
+						onclick="addDebitedBil()">add</button>
+					<button id="closeModelDebit" type="button" class="btn btn-default"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Modal End-->
+
+
+
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+<script type="text/javascript">
+	/*<![CDATA[*/
+		
+// 		$('#allcustomer').click(function(e) {
+// 		e.preventDefault(); 
+// 		alert("getAllCustomer");
+ function  getAllCustomer(){
+		$.ajax({
+			type : "GET",
+			url : '/BalanceApp/customer/getAllCustomer',
+			success: function(result){
+
+// 				console.log("Success: ", result[0].custFName);
+// 				console.log("Success: ", result);
+		var dataArr = [];
+		  $.each(result, function (key, value) {
+			  var dataArray = [];
+			  dataArray.push(value.custId);
+		        dataArray.push(value.custFName);
+		        dataArray.push(value.custLName);
+		        dataArray.push(value.city);
+		        dataArray.push(value.state);
+		        dataArray.push(value.contact);
+		        dataArray.push(value.totalDue);
+		        dataArray.push("<div class=\"btn-group\" style=\"margin-left: 6em;\"><button data-toggle=\"modal\" data-target=\"#myModal\" class=\"btn btn-warning\" onclick=\"getRowData("+value.custId+",'"+value.custFName+"','"+value.custLName+"'),getClearUnwantedField();\" >Credited Bill</button><button  data-toggle=\"modal\" data-target=\"#myModalDebit\"  class=\"btn btn-danger\" onclick=\"getRowData("+value.custId+",'"+value.custFName+"','"+value.custLName+"'),getClearUnwantedField()\"  >Debited Bill</button><button   class=\"btn btn-primary\" onclick=\"getDetailsPageImproved("+value.custId+")\">Get Details</button></div>")
+		        dataArr.push(dataArray);
+		        console.log(dataArray);
+				        
+		  });
+		  getTable(dataArr);
+			}
+		});	
+
+ }
+// 		alert("getAllCustomerEnd");
+// 		});	
+	
+	function getTable(dataArr) {
+	    $('#CustDatatable').DataTable({
+	    	destroy: true,
+	        data: dataArr,
+      columns: [
+      	{ title: "Id" },
+          { title: "Fist Name" },
+          { title: "Last Name" },
+          { title: "city" },
+          { title: "State" },
+          { title: "contact" },
+          { title: "TotalDue" },
+          { title: "Action" }
+	        ]
+	    });
+	}
+	
+	$('#addCustomer').click( function(event) {
+		   event.preventDefault();
+		   window.location.href= "/BalanceApp/customer/add-customer";
+		});
+	
+	
+	function addCreditBil(){
+		console.log("serialize:-->>"+$("form").serialize());
+		var serializeObject=$("form").serialize();
+		var custIdModelData=$("#custIdModelData").val();
+		console.log("serialize:-object->>"+serializeObject);
+		var urlForBill='/BalanceApp/creditedBill/addCreditedBill?'+serializeObject+'&custId='+custIdModelData;
+		console.log("url->>"+urlForBill);
+		$.ajax({
+			type : "GET",
+			url :urlForBill ,
+			success: function(result){
+			// alert("credited bill called");
+			// alert(result);
+			$('#successMsg').html(result);
+			$('#closeModel').click();
+			getAllCustomer();
+				        
+				  }
+			});
+		}
+	
+	function addDebitedBil(){
+		console.log("addDebitedBil");
+		var serializeObject=$("#debitBillForm").serialize();
+		console.log("serializeObject-->>"+serializeObject);
+		var custIdDebitModelData=$("#custIdDebitModelData").val();
+		var urlForBill='/BalanceApp/debitedBill/addBill?'+serializeObject+'&custId='+custIdDebitModelData;
+		$.ajax({
+			type : "GET",
+			url :urlForBill ,
+			success: function(result){
+			// alert("credited bill called");
+			// alert(result);
+			$('#successMsg').html(result);
+			$('#closeModelDebit').click();
+			getAllCustomer();
+				        
+				  }
+			});
+	}
+	
+	function getRowData(custId,custFname,custLname){
+	console.log("getRowData");
+
+    	console.log("custId-->>"+custId);
+    	console.log("custFname-->>"+custFname);
+    	console.log("custLname-->>"+custLname);
+	if(custId!=0 && custFname!='' && custLname!=''){
+	    $("#custIdModelData").val(custId+'');
+		$('#custFName').val(custFname+'');
+		$('#custLName').val(custLname+'');
+		$("#custIdDebitModelData").val(custId+'');
+		$('#custFNameDebit').val(custFname+'');
+		$('#custLNameDebit').val(custLname+'');
+		$('#custIDUniversal').val(custId+'');
+	}
+
+
+	}
+	
+	function onLoadEvents(){
+		console.log("onLoadEvents");
+		$("#custIdModelData").val("");
+    	$('#custFName').val("");
+    	$('#custLName').val("");
+	}
+	
+	function getClearUnwantedField(){
+		$("#creditDate").val("");
+    	$('#creditAmount').val("");
+    	$("#billAmount").val("");
+    	$('#billDate').val("");
+    	$("#billClearDate").val("");
+    	$('#due').val("");
+    	$('#dateCount').val("");
+    	
+	}
+	
+	
+	function getDetailsPageImproved(custIDUniversal = ''){
+	
+		if(custIDUniversal!=0){
+			  window.location.href= "/BalanceApp/customer/getDetailsPage?custId="+custIDUniversal;
+		}
+		
+	}
+	
+	function getuniversalId(){
+		alert("getuniversalId");
+		$('#custIDUniversal').val();
+	}
+	
+
+	 $( function() {
+		    $( "#creditDate" ).datepicker({ minDate: -20, maxDate: "+1M +15D" });
+		  } );
+	
+	/*]]>*/
+	</script>
+
+</html>

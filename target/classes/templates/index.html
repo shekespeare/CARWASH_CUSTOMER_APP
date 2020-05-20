@@ -1,0 +1,90 @@
+<html>
+
+<head>
+	<title>index page</title>
+</head>
+
+
+<body>
+<H1>Punit Textile Application</H1>
+<button type="button" id="addCustomer" name= "addCustomer">Add Customer</button>
+<button type="button" id= "getAllCustomer" name= "getAllCustomer">Get All Customer</button>
+<!-- <button type="button" id= "getCustomerById" name= "getCustomerById">Get Customer By Id</button> -->
+<button type="button" id= "addBill" name= "addBill">Add Bill</button>
+<!-- <button type="button" id= "getBills" name= "getBills">Get Bills</button> -->
+<!-- <button type="button" id= "getBillByBillId" name= "getBillByBillId">Get Bill By Bill Id</button> -->
+<button type="button" id= "getBillsByCustomerId" name= "getBillsByCustomerId">Get Bills By Customer Id</button>
+<br><br>
+<div> 
+<table id="CustDatatable"/></div>
+
+<script
+  src = "https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity = "sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin = "anonymous"></script>
+ 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script> 
+<script type="text/javascript">
+	
+	$('#addCustomer').click(function(e) {
+		location.href = '/balanceApp/addCustomer';
+	});
+	
+	$('#getAllCustomer').click(function(e) {
+		e.preventDefault(); 
+		
+		$.ajax({
+			type : "GET",
+			url : 'http://localhost:9999/balanceApp/Customer/AllCustomer',
+			success: function(result){
+				console.log("Success: ", result);
+				var dataArr = [];
+				  $.each(result.data, function (key, value) {
+					  var dataArray = [];
+					  dataArray.push(value.customerId);
+				        dataArray.push(value.custFName);
+				        dataArray.push(value.custLName);
+				        dataArray.push(value.city);
+				        dataArray.push(value.state);
+				        dataArray.push(value.contact);
+				        dataArray.push(value.totalDue);
+				        dataArr.push(dataArray);
+				        console.log(dataArray);
+				  });
+				  getTable(dataArr);
+					
+			},
+			error : function(e) {
+				$("#getResultDiv").html("<strong>Error</strong>");
+				console.log("ERROR: ", e);
+			}
+		});	
+	});
+	
+
+	function getTable(dataArr) {
+	    $('#CustDatatable').DataTable({
+	    	destroy: true,
+	        data: dataArr,
+	        columns: [
+	        	{ title: "Id" },
+	            { title: "Fist Name" },
+	            { title: "Last Name" },
+	            { title: "city" },
+	            { title: "State" },
+	            { title: "contact" },
+	            { title: "TotalDue" }
+	        ]
+	    });
+	}
+	
+	
+	$('#addBill').click(function(e) {
+		location.href = '/balanceApp/addBill';
+	});
+	
+</script> 
+</body>
+</html>

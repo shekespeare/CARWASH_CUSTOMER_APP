@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+ <head>
+        <title th:text="#{app.title}"> Title </title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+        
+        <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+	
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    </head>
+<body class="well well-lg jumbotron">
+
+	<div class="col-md-4">
+		<a th:href="@{/customer/home}" class="btn btn-info  btn-md btn-rounded"> <span
+			class="glyphicon glyphicon-home"></span> Home
+		</a>
+	</div>
+
+
+	<h1 style="margin-left: 6em;" th:text="${header}"></h1>
+<div class="col-md-6">
+<label>Customer Name: <span th:text=" ${custName}"></span></label>
+</div>
+
+<div class="col-md-6">
+<label>City: <span th:text=" ${city}"></span></label>
+
+</div>
+
+<div class="col-md-3">
+<label>Date: <span th:text=" ${Date}"></span></label>
+</div>
+<div class="col-md-3">
+<label>Contact No: <span th:text=" ${contactNo}"></span></label>
+
+</div>
+
+<div class="col-md-3">
+<label>Total Due: <span th:text=" ${duetotal}"></span></label>
+
+</div>
+
+
+
+<div class="col-md-12">
+</div>
+
+
+	<!--    debited table -->
+	<div class="col-md-8">
+		<table class="table table-hover">
+			<caption>List of Debited Bills</caption>
+			<thead class="table-primary">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Bill Amount</th>
+					<th scope="col">Bill Date</th>
+					<th scope="col">Clear Flag</th>
+					<th scope="col">Clear Date</th>
+					<th scope="col">Date Count</th>
+					<th scope="col">Due</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${billTable.empty}">
+				</tr>
+				<tr th:each="billTable : ${billTable}">
+					<td scope="row"><span th:text="${billTable.billId}">
+							Title </span></td>
+					<td><span th:text="${billTable.billAmount}"> Title </span></td>
+					<td><span th:text="${billTable.billDate}"> Author </span></td>
+					<td><span th:text="${billTable.clearFlag}"> Author </span></td>
+					<td><span th:text="${billTable.billClearDate}"> Author
+					</span></td>
+					<td><span th:text="${billTable.dateCount}"> Author </span></td>
+					<td><span th:text="${billTable.due}"> Author </span></td>
+				</tr>
+				<tr>
+				 <td colspan="1"> Total  </td>
+				  <td colspan="4"><span th:text="${Btotal}"> Author </span></td>
+				   <td colspan="1"> Total Due  </td>
+				  <td colspan="1"><span th:text="${duetotal}"> Author </span></td>
+				 </tr>
+			</tbody>
+		</table>
+
+
+	</div>
+	
+	<!-- credited table -->
+	<div class="col-md-4">
+		<table class="table table-hover">
+			<caption>List of Credited Bills</caption>
+			<thead class="table-primary">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Credited Amount</th>
+					<th scope="col">Credited Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${creditedTable.empty}">
+				</tr>
+				<tr th:each="creditedTable : ${creditedTable}">
+					<td scope="row"><span th:text="${creditedTable.cBillId}">
+							Title </span></td>
+					<td><span th:text="${creditedTable.creditAmount}">
+							Title </span></td>
+					<td><span th:text="${creditedTable.creditDate}"> Author
+					</span></td>
+				</tr>
+				<tr>
+				 <td colspan="1"> Total </td>
+				  <td colspan="1"><span th:text="${Ctotal}"> Author </span></td>
+				 </tr>
+			</tbody>
+		</table>
+
+	</div>
+	
+	<div class="col-md-8"></div>
+	<div class="col-md-4">
+	<h3><label>SIGNATURE</label></h3>
+	</div>
+
+</body>
+</html>   
